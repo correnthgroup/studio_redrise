@@ -22,13 +22,16 @@ test("Space -> Process -> Canvas -> failed Run -> Actions -> Retry", async ({ pa
   await expect(page.getByText(processName, { exact: true })).toBeVisible()
 
   await page.getByLabel("Open actions for " + processName).click()
-  await page.getByRole("menuitem", { name: "Open canvas" }).click()
-  await expect(page.getByRole("heading", { name: processName + " Canvas" })).toBeVisible()
+  await Promise.all([
+    page.waitForURL(/\/workstation\/process\/[^/]+\/canvas$/),
+    page.getByRole("menuitem", { name: "Open canvas" }).click(),
+  ])
+  await expect(page.getByRole("heading", { name: processName + " Canvas", exact: true })).toBeVisible()
 
-  await page.getByText("Initial llm node", { exact: true }).click()
-  await page.getByRole("button", { name: "Edit", exact: true }).click()
+  await page.getByRole("group").filter({ hasText: "Initial llm node" }).click()
+  await page.getByRole("button", { name: /^Edit/ }).click()
   const dialog = page.getByRole("dialog")
-  await dialog.locator("textarea").nth(3).fill('{"model":"default","simulateFailure":true}')
+  await dialog.getByLabel("Execution config JSON").fill('{"model":"default","simulateFailure":true}')
   await dialog.getByRole("button", { name: "Save changes" }).click()
 
   await page.getByRole("button", { name: "Run", exact: true }).click()
@@ -36,8 +39,9 @@ test("Space -> Process -> Canvas -> failed Run -> Actions -> Retry", async ({ pa
   await expect(page.getByText(processName).first()).toBeVisible()
   await expect(page.getByText("failed", { exact: true }).first()).toBeVisible({ timeout: 10000 })
 
-  await page.getByText("failed", { exact: true }).first().click()
+  const failedAction = page.getByRole("button", { name: "View details for Initial llm node in " + processName })
+  await failedAction.click()
   await expect(page.getByRole("button", { name: "Retry" })).toBeVisible()
   await page.getByRole("button", { name: "Retry" }).click()
-  await expect(page.getByText("completed", { exact: true }).first()).toBeVisible({ timeout: 10000 })
+  await expect(page.locator("article").filter({ hasText: processName }).filter({ hasText: "completed" })).toBeVisible({ timeout: 10000 })
 })

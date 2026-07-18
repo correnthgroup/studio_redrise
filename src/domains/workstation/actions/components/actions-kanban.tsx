@@ -60,17 +60,15 @@ export function ActionsKanban({
             </CardHeader>
             <CardContent className="grid gap-3">
               {columnActions.length ? columnActions.map((action) => (
-                <button
+                <article
                   key={action.id}
-                  type="button"
-                  onClick={() => onViewDetails(action)}
-                  className="rounded-xl border bg-background p-3 text-left shadow-sm transition-colors hover:bg-muted/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  className="rounded-xl border bg-background p-3 text-left shadow-sm transition-colors hover:bg-muted/50"
                 >
                   <div className="flex items-start justify-between gap-3">
-                    <div className="grid gap-1">
+                    <button type="button" aria-label={`View details for ${action.nodeTitle} in ${action.processName}`} onClick={() => onViewDetails(action)} className="grid gap-1 text-left rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
                       <p className="font-medium leading-5">{action.nodeTitle}</p>
                       <p className="text-xs text-muted-foreground">{action.processName} / {action.spaceName}</p>
-                    </div>
+                    </button>
                     <DropdownMenu>
                       <DropdownMenuTrigger render={<Button type="button" variant="ghost" size="icon" className="size-8" onClick={(event) => event.stopPropagation()} aria-label={`Open actions for ${action.nodeTitle}`} />}>
                         <MoreHorizontalIcon className="size-4" />
@@ -103,7 +101,7 @@ export function ActionsKanban({
                     <span>{action.modelName}</span>
                     <span>{action.duration}</span>
                   </div>
-                </button>
+                </article>
               )) : (
                 <div className="rounded-xl border border-dashed p-6 text-center text-sm text-muted-foreground">No node runs in {column.title}.</div>
               )}

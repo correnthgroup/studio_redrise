@@ -15,6 +15,7 @@
 - Retry preserves the failed attempt and creates a new auditable attempt.
 - React Hook Form + Zod validate creation/configuration forms.
 - Capabilities drive visibility and Sonner denial feedback.
+- The authenticated Playwright flow covers Space -> Process -> Canvas -> failed Run -> Actions -> Retry.
 
 ## Core files
 

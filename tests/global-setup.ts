@@ -24,13 +24,13 @@ function loadEnv(): Record<string, string> {
 }
 
 const env = loadEnv()
-export const TEST_EMAIL = 'raulveiga137@gmail.com'
-export const TEST_PASSWORD = 'Abcw1010@'
-
 export default async function globalSetup() {
+  if (!process.env.E2E_TEST_EMAIL || !process.env.E2E_TEST_PASSWORD) {
+    throw new Error('[global-setup] Configure E2E_TEST_EMAIL and E2E_TEST_PASSWORD with a confirmed test account')
+  }
+
   if (!env.NEXT_PUBLIC_SUPABASE_URL || !env.SUPABASE_SERVICE_ROLE_KEY) {
-    console.log('[global-setup] Missing env vars; skipping user creation')
-    console.log('[global-setup] Configure E2E_TEST_EMAIL and E2E_TEST_PASSWORD with a confirmed test account')
+    console.log('[global-setup] Supabase admin environment unavailable; using the confirmed E2E account without provisioning')
     return
   }
 

@@ -1,5 +1,18 @@
 # TASK_LOG
 
+## 2026-07-18 - Dev 404 and authenticated Workstation E2E
+
+- Fixed intermittent authenticated 404s by pinning turbopack.root to the RedRise repository instead of the parent directory inferred from an unrelated lockfile.
+- Removed legacy hardcoded E2E credentials; confirmed accounts are supplied only through E2E_TEST_EMAIL and E2E_TEST_PASSWORD.
+- Added an accessible label for Node execution configuration and deterministic Playwright navigation/selectors.
+- Replaced the invalid nested-button Actions card markup with semantic sibling controls, eliminating the hydration error and making Action Details/Retry reliable.
+
+### Validation
+
+- Authenticated Playwright Workstation project: 2/2 passed, including Space -> Process -> Canvas -> failed Run -> Actions -> Retry.
+- Typecheck passed; 4/4 unit tests passed; lint passed with 0 errors and 10 known warnings; production build passed.
+- Build and dev startup no longer report an incorrectly inferred Turbopack workspace root.
+
 ## 2026-07-18 - RedScale and embedded CML superseded
 
 - RedScale is not part of RedRise. Paperclip owns agent orchestration for the Correnth group.

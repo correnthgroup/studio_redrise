@@ -19,4 +19,5 @@ python -m graphify update . --force
 ## Known Blockers
 
 - Full graph extraction/rebuild requires an LLM API key.
-- E2E coverage for the new foundation has not been implemented yet.
+- Authenticated Workstation E2E is implemented and requires E2E_TEST_EMAIL/E2E_TEST_PASSWORD for a confirmed account.
+- next.config.ts pins turbopack.root to the repository directory so parent lockfiles cannot make dev route discovery intermittent.
