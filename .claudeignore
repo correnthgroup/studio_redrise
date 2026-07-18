@@ -1,0 +1,8 @@
+# .claudeignore
+# Files Claude Code should NOT re-send to the model on every turn.
+# These outputs are written by tooling and would otherwise invalidate
+# the prompt cache after every write, forcing a full re-upload.
+
+# Graphify outputs (knowledge graph artifacts)
+docs/graphify-out/
+docs/graphify-out/**

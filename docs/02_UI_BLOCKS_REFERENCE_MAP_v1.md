@@ -2,7 +2,7 @@
 
 ## Status
 
-Active UI reference baseline through Auth, App Shell, Workstation Root, and Spaces.
+Active UI reference baseline through Auth, App Shell, Workstation Root, Spaces, Process, and Actions.
 
 ## Global Rules
 
@@ -72,7 +72,43 @@ Do not reuse dashboard app shell or site header.
 Spaces UI decisions:
 
 - CTA label: `New Workspace`.
-- Create wizard steps: Space Details, Members & Roles, Review.
+- Create wizard uses the `dialog-11` layout with Space Details, Members & Roles, and Review sections.
 - Add Member lists accepted organization members only.
 - Role Assignment supports Admin, Owner, Board, Staff, User, Viewer.
 - Row actions use dropdowns and dialogs/toasts.
+
+## Process
+
+| Section | Reference | Implementation |
+|---|---|---|
+| Process table | `@blocks-so/table-02` + shadcn Data Table guide | `process-table.tsx`, `data-table-*.tsx` |
+| Create Process | `@blocks-so/dialog-11` | `create-process-dialog.tsx` |
+| Process Canvas | ReactFlow | `process-canvas-page.tsx` |
+| Canvas menu | Collapsible internal menu based on sidebar behavior | `process-canvas-toolbar.tsx` |
+| Node config | Dialog sections | `process-node-config-dialog.tsx` |
+
+Process UI decisions:
+
+- Process List includes row actions, pagination, sorting, filtering, visibility, row selection, and reusable table helpers.
+- Create Process uses a `dialog-11` layout with Space, Process Identity, Trigger & Owner, and Initial Node sections.
+- Canvas cards show only title, type, status, prompt preview, handles, and action menu.
+- Full node fields move into a Dialog: Identity, Instruction, Input, Tool/Execution, Output, Error Handling, Review.
+- Canvas Node menu is collapsible and exposes New, Delete, Edit, and Select actions with visible shortcuts.
+
+## Actions
+
+| Section | Reference | Implementation |
+|---|---|---|
+| Live Kanban | `@reui/c-kanban-5` adapted | `actions-kanban.tsx` |
+| Actions filters | shadcn Input/Select/Button | `actions-filters.tsx` |
+| Run History table | `@blocks-so/table-02` + shared Data Table helpers | `run-history-table.tsx`, `src/domains/workstation/components/data-table-*.tsx` |
+| Action Details | `@blocks-so/dialog-11` | `action-details-dialog.tsx` |
+
+Actions UI decisions:
+
+- Actions is observational and has no creation CTA.
+- Filters cover Space, Process, Status, Date Range, and Search.
+- Kanban columns are Plan, Prepare, Execute, and Result.
+- Runtime status controls card placement; manual drag/status mutation is not part of MVP.
+- Run History includes row actions, pagination, sorting, filtering, visibility, row selection, and reusable helpers.
+- Details use Dialog/Modal only, not side panels or drawers.

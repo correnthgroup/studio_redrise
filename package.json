@@ -11,6 +11,11 @@
     "typecheck": "tsc --noEmit",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
+    "test:unit": "node --test tests/unit/*.test.mjs",
+    "ingest:ctx": "node scripts/ingest-markdown.mjs",
+    "reindex:ctx": "node scripts/ingest-markdown.mjs",
+    "mcp:context": "node scripts/mcp/correnth-context.mjs",
+    "mcp:context:self-test": "node scripts/mcp/correnth-context.mjs --self-test",
     "context:pack": "node scripts/context-pack.mjs",
     "mcp:redrise-ops": "node scripts/mcp/redrise-ops.mjs",
     "mcp:redrise-ops:self-test": "node scripts/mcp/redrise-ops.mjs --self-test"

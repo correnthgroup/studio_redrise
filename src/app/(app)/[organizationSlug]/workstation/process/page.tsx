@@ -1,5 +1,7 @@
-import { RouteSkeleton } from "@/components/layout/route-skeleton"
+import { ProcessPage as ProcessDomainPage } from "@/domains/workstation/process/components/process-page"
 
-export default function ProcessPage() {
-  return <RouteSkeleton title="Process" description="Process list and canvas entry point. Final process logic is out of scope for this foundation block." screenId="WS-PROCESS-LIST" />
+export default async function ProcessPage({ params }: { params: Promise<{ organizationSlug: string }> }) {
+  const { organizationSlug } = await params
+
+  return <ProcessDomainPage organizationSlug={organizationSlug} />
 }

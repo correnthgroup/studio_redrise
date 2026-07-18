@@ -30,6 +30,8 @@ These files win over older code, graph output, migrations, or memory.
 - Workstation Root: `/:organizationSlug/workstation`.
 - Spaces Overview: `/:organizationSlug/workstation/spaces`.
 - Create Space Wizard and Space role assignment with typed mock data.
+- Process List and Process Canvas with typed mock data.
+- Actions observability screen with typed mock data.
 
 ## Current Entry Points
 
@@ -61,11 +63,13 @@ npm run start
 npm run lint
 npm run typecheck
 npm run test:e2e
-python -m graphify update . --force
+python -m graphify update . --force              # AST-only, zero token cost
+.\scripts\graphify-semantic.ps1 -Force           # semantic layer via OpenRouter (qwen-2.5-72b)
 ```
 
 ## Known Blockers
 
-- Full graph rebuild needs an LLM API key; structural graph update works without it.
-- Final Supabase business persistence for Spaces/Workstation is pending.
+- Semantic layer uses OpenRouter (qwen-2.5-72b, ~$0.0005 per full pass). OPENROUTER_API_KEY in .env.local.
+- `cluster-only` does not respect `GRAPHIFY_OUT` env var — use `--graph docs/graphify-out/graph.json` flag instead.
+- Final Supabase business persistence for Spaces/Process/Actions/Workstation is pending.
 - Legacy backend artifacts remain preserved until cleanup PRD.

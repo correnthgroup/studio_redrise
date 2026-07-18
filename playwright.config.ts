@@ -74,9 +74,16 @@ export default defineConfig({
       use: { storageState: 'tests/.auth/user.json' },
       fullyParallel: false,
     },
-    {
-      name: 'settings',
+{
+      name: "settings",
       testMatch: /settings\.spec\.ts/,
+      dependencies: ['auth-setup'],
+      use: { storageState: 'tests/.auth/user.json' },
+      fullyParallel: false,
+    },
+    {
+      name: "context-memory",
+      testMatch: /context-memory\.spec\.ts/,
       dependencies: ['auth-setup'],
       use: { storageState: 'tests/.auth/user.json' },
       fullyParallel: false,

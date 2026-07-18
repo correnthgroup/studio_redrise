@@ -17,6 +17,7 @@ Context router for RedRise.
 | App Shell/Layout | `memory/modules/settings.md` if settings-adjacent | `src/components/layout/`, `src/app/(app)/[organizationSlug]/layout.tsx` |
 | Workstation/Spaces | `memory/modules/workstation.md` | `src/domains/workstation/`, `src/app/(app)/[organizationSlug]/workstation/` |
 | Supabase/Auth/backend | `memory/modules/supabase.md` | `src/lib/supabase*.ts`, `supabase/` |
+| Context Memory (CML) | `memory/modules/context-memory.md` | `src/domains/context/`, `supabase/migrations/048_*`, `scripts/ingest-markdown.mjs`, `scripts/mcp/correnth-context.mjs`, `src/app/(app)/[organizationSlug]/context/` |
 | Validation/deploy | `memory/modules/testing-deploy.md` | `package.json`, `README.md`, graphify outputs |
 
 ## Documentation Policy
@@ -32,3 +33,10 @@ Context router for RedRise.
 - Update `memory/TASK_LOG.md` with changes, validation, blockers, and graph status.
 - Run `npm run typecheck` and `npm run build` for code changes.
 - Run `python -m graphify update . --force` after structural changes when feasible.
+
+## Memory Economics
+
+Context engineering lives in `AGENTS.md` under "Memory Economics". Use
+`graphify query`/`path`/`explain` for cross-file questions; reach for
+`Read`/`Grep` only for local single-file questions. Semantic layer lives in
+`docs/graphify-out/`.

@@ -1,0 +1,297 @@
+import type { ActionFilters, ActionNodeRun, ActionStage, ProcessRun } from "@/domains/workstation/actions/types/action.types"
+
+export const mockProcessRuns: ProcessRun[] = [
+  {
+    id: "run-240707-001",
+    organizationId: "org-redrise",
+    spaceId: "space-001",
+    spaceName: "Finance Operations",
+    processId: "process-001",
+    processName: "Monthly Closing",
+    triggerType: "schedule",
+    triggeredBy: "System schedule",
+    status: "running",
+    startedAt: "2026-07-07 09:40",
+    duration: "4m 12s",
+  },
+  {
+    id: "run-240707-002",
+    organizationId: "org-redrise",
+    spaceId: "space-002",
+    spaceName: "Customer Support",
+    processId: "process-002",
+    processName: "Support Triage",
+    triggerType: "webhook",
+    triggeredBy: "support@redrise.app",
+    status: "failed",
+    startedAt: "2026-07-07 09:12",
+    completedAt: "2026-07-07 09:13",
+    duration: "1m 04s",
+  },
+  {
+    id: "run-240707-003",
+    organizationId: "org-redrise",
+    spaceId: "space-003",
+    spaceName: "Growth Lab",
+    processId: "process-003",
+    processName: "Content Review",
+    triggerType: "manual",
+    triggeredBy: "Beatriz Costa",
+    status: "completed",
+    startedAt: "2026-07-07 08:44",
+    completedAt: "2026-07-07 08:51",
+    duration: "7m 20s",
+  },
+  {
+    id: "run-240706-004",
+    organizationId: "org-redrise",
+    spaceId: "space-001",
+    spaceName: "Finance Operations",
+    processId: "process-005",
+    processName: "Invoice Exception Review",
+    triggerType: "manual",
+    triggeredBy: "Ana Rivera",
+    status: "queued",
+    startedAt: "2026-07-06 17:30",
+    duration: "Queued",
+  },
+  {
+    id: "run-240705-005",
+    organizationId: "org-redrise",
+    spaceId: "space-002",
+    spaceName: "Customer Support",
+    processId: "process-004",
+    processName: "Lead Intake",
+    triggerType: "integration",
+    triggeredBy: "CRM integration",
+    status: "cancelled",
+    startedAt: "2026-07-05 15:08",
+    completedAt: "2026-07-05 15:09",
+    duration: "48s",
+  },
+]
+
+export const mockActionNodeRuns: ActionNodeRun[] = [
+  {
+    id: "node-run-001",
+    processRunId: "run-240707-001",
+    nodeId: "node-001",
+    nodeTitle: "Receive closing batch",
+    nodeType: "webhook",
+    processId: "process-001",
+    processName: "Monthly Closing",
+    spaceId: "space-001",
+    spaceName: "Finance Operations",
+    status: "completed",
+    stage: "result",
+    startedAt: "2026-07-07 09:40",
+    completedAt: "2026-07-07 09:40",
+    duration: "12s",
+    modelName: "Runtime webhook",
+    triggerType: "schedule",
+    triggeredBy: "System schedule",
+    planSummary: "Validated payload source and expected schema.",
+    prepareSummary: "Normalized invoice batch metadata.",
+    executeSummary: "Received 42 invoices from Finance webhook.",
+    resultSummary: "Invoice payload received successfully.",
+    inputSnapshot: { source: "finance.webhook.invoices" },
+    outputSnapshot: { invoices: 42, receivedAt: "2026-07-07T09:40:12Z" },
+    outputType: "json",
+    metadata: { attempts: 1, runtime: "edge" },
+  },
+  {
+    id: "node-run-002",
+    processRunId: "run-240707-001",
+    nodeId: "node-002",
+    nodeTitle: "Validate invoices",
+    nodeType: "llm",
+    processId: "process-001",
+    processName: "Monthly Closing",
+    spaceId: "space-001",
+    spaceName: "Finance Operations",
+    status: "executing",
+    stage: "execute",
+    startedAt: "2026-07-07 09:41",
+    duration: "3m 01s",
+    modelName: "RedRise Default",
+    triggerType: "schedule",
+    triggeredBy: "System schedule",
+    planSummary: "Identify missing fields, duplicate invoice IDs and policy exceptions.",
+    prepareSummary: "Prepared validation prompts and exception criteria.",
+    executeSummary: "Checking duplicate IDs and required approval thresholds.",
+    inputSnapshot: { invoices: 42 },
+    outputType: "markdown",
+    metadata: { attempts: 1, temperature: 0.2 },
+  },
+  {
+    id: "node-run-003",
+    processRunId: "run-240707-001",
+    nodeId: "node-003",
+    nodeTitle: "Finance approval",
+    nodeType: "human_approval",
+    processId: "process-001",
+    processName: "Monthly Closing",
+    spaceId: "space-001",
+    spaceName: "Finance Operations",
+    status: "preparing",
+    stage: "prepare",
+    startedAt: "2026-07-07 09:42",
+    duration: "45s",
+    modelName: "Human approval",
+    triggerType: "schedule",
+    triggeredBy: "System schedule",
+    planSummary: "Determine approver from Space role policy.",
+    prepareSummary: "Preparing approval request for Finance Board reviewer.",
+    outputType: "boolean",
+    metadata: { reviewerRole: "Board" },
+  },
+  {
+    id: "node-run-004",
+    processRunId: "run-240706-004",
+    nodeId: "node-010",
+    nodeTitle: "Classify invoice risk",
+    nodeType: "condition",
+    processId: "process-005",
+    processName: "Invoice Exception Review",
+    spaceId: "space-001",
+    spaceName: "Finance Operations",
+    status: "queued",
+    stage: "plan",
+    startedAt: "2026-07-06 17:30",
+    duration: "Queued",
+    modelName: "Rules engine",
+    triggerType: "manual",
+    triggeredBy: "Ana Rivera",
+    planSummary: "Waiting for the previous invoice extraction node.",
+    outputType: "boolean",
+    metadata: { queue: "finance-default" },
+  },
+  {
+    id: "node-run-005",
+    processRunId: "run-240707-002",
+    nodeId: "node-020",
+    nodeTitle: "Route urgent ticket",
+    nodeType: "integration",
+    processId: "process-002",
+    processName: "Support Triage",
+    spaceId: "space-002",
+    spaceName: "Customer Support",
+    status: "failed",
+    stage: "result",
+    startedAt: "2026-07-07 09:12",
+    completedAt: "2026-07-07 09:13",
+    duration: "1m 04s",
+    modelName: "Gmail integration",
+    triggerType: "webhook",
+    triggeredBy: "support@redrise.app",
+    planSummary: "Route urgent customer message to the correct owner.",
+    prepareSummary: "Loaded customer metadata and integration credentials.",
+    executeSummary: "Attempted to create Gmail label and forward the message.",
+    resultSummary: "Integration failed before routing could complete.",
+    inputSnapshot: { ticket: "SUP-901", priority: "urgent" },
+    outputSnapshot: { routed: false },
+    outputType: "external_action_result",
+    errorMessage: "Gmail credential expired. Reconnect the integration in Settings > Integration.",
+    failedStage: "execute",
+    suggestedNextAction: "Open Settings > Integration and reconnect Gmail before retrying from runtime controls.",
+    metadata: { attempts: 2, integration: "gmail" },
+  },
+  {
+    id: "node-run-006",
+    processRunId: "run-240707-003",
+    nodeId: "node-030",
+    nodeTitle: "Final summary",
+    nodeType: "llm",
+    processId: "process-003",
+    processName: "Content Review",
+    spaceId: "space-003",
+    spaceName: "Growth Lab",
+    status: "completed",
+    stage: "result",
+    startedAt: "2026-07-07 08:49",
+    completedAt: "2026-07-07 08:51",
+    duration: "2m 10s",
+    modelName: "RedRise Default",
+    triggerType: "manual",
+    triggeredBy: "Beatriz Costa",
+    planSummary: "Summarize approved edits and produce a final publishing note.",
+    prepareSummary: "Loaded reviewer notes and accepted changes.",
+    executeSummary: "Generated final markdown summary.",
+    resultSummary: "Content review completed with approved edits and publishing checklist.",
+    inputSnapshot: { notes: 6, approved: true },
+    outputSnapshot: { summary: "Approved edits and publishing checklist generated." },
+    outputType: "markdown",
+    metadata: { attempts: 1, tokens: 1490 },
+  },
+  {
+    id: "node-run-007",
+    processRunId: "run-240705-005",
+    nodeId: "node-040",
+    nodeTitle: "Normalize lead payload",
+    nodeType: "api",
+    processId: "process-004",
+    processName: "Lead Intake",
+    spaceId: "space-002",
+    spaceName: "Customer Support",
+    status: "cancelled",
+    stage: "result",
+    startedAt: "2026-07-05 15:08",
+    completedAt: "2026-07-05 15:09",
+    duration: "48s",
+    modelName: "Runtime API",
+    triggerType: "integration",
+    triggeredBy: "CRM integration",
+    planSummary: "Map CRM lead payload to RedRise process input.",
+    prepareSummary: "Prepared API normalization request.",
+    executeSummary: "Execution cancelled because the Process was paused.",
+    resultSummary: "No output produced.",
+    outputType: "json",
+    metadata: { cancellationReason: "process_paused" },
+  },
+]
+
+export const actionSpaces = Array.from(new Map(mockProcessRuns.map((run) => [run.spaceId, { id: run.spaceId, name: run.spaceName }])).values())
+export const actionProcesses = Array.from(new Map(mockProcessRuns.map((run) => [run.processId, { id: run.processId, name: run.processName }])).values())
+
+export function getActionStage(status: ActionNodeRun["status"]): ActionStage {
+  if (status === "preparing") return "prepare"
+  if (status === "executing") return "execute"
+  if (status === "completed" || status === "failed" || status === "skipped" || status === "cancelled") return "result"
+  return "plan"
+}
+
+export function filterActions(actions: ActionNodeRun[], filters: ActionFilters) {
+  const query = filters.search.trim().toLowerCase()
+
+  return actions.filter((action) => {
+    const matchesSpace = filters.spaceId === "all" || action.spaceId === filters.spaceId
+    const matchesProcess = filters.processId === "all" || action.processId === filters.processId
+    const matchesStatus = filters.status === "all" || action.status === filters.status
+    const matchesDate = filters.dateRange === "all" || (filters.dateRange === "today" && action.startedAt?.startsWith("2026-07-07")) || filters.dateRange === "7d"
+    const matchesSearch = !query || [
+      action.id,
+      action.processRunId,
+      action.nodeTitle,
+      action.processName,
+      action.spaceName,
+      action.modelName,
+      action.triggeredBy,
+    ].some((value) => value.toLowerCase().includes(query))
+
+    return matchesSpace && matchesProcess && matchesStatus && matchesDate && matchesSearch
+  })
+}
+
+export function filterProcessRuns(runs: ProcessRun[], actions: ActionNodeRun[], filters: ActionFilters) {
+  const visibleRunIds = new Set(filterActions(actions, filters).map((action) => action.processRunId))
+
+  return runs.filter((run) => {
+    const matchesSpace = filters.spaceId === "all" || run.spaceId === filters.spaceId
+    const matchesProcess = filters.processId === "all" || run.processId === filters.processId
+    const matchesStatus = filters.status === "all" || run.status === filters.status || visibleRunIds.has(run.id)
+    const matchesDate = filters.dateRange === "all" || (filters.dateRange === "today" && run.startedAt?.startsWith("2026-07-07")) || filters.dateRange === "7d"
+    const matchesSearch = !filters.search.trim() || visibleRunIds.has(run.id) || [run.id, run.processName, run.spaceName, run.triggeredBy].some((value) => value.toLowerCase().includes(filters.search.trim().toLowerCase()))
+
+    return matchesSpace && matchesProcess && matchesStatus && matchesDate && matchesSearch
+  })
+}

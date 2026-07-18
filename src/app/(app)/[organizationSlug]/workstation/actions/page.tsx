@@ -1,5 +1,7 @@
-import { RouteSkeleton } from "@/components/layout/route-skeleton"
+import { ActionsPage as ActionsDomainPage } from "@/domains/workstation/actions/components/actions-page"
 
-export default function ActionsPage() {
-  return <RouteSkeleton title="Actions" description="Execution control center skeleton for future Kanban, logs and run tracking." screenId="WS-ACTIONS" />
+export default async function ActionsPage({ params }: { params: Promise<{ organizationSlug: string }> }) {
+  const { organizationSlug } = await params
+
+  return <ActionsDomainPage organizationSlug={organizationSlug} />
 }

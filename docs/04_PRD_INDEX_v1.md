@@ -16,6 +16,12 @@ Active PRD index through the current implementation point.
 | PRD-015 | Spaces List | WS-SPACES | Implemented with mock data |
 | PRD-016 | Create Space Wizard | WS-SPACES | Implemented with mock data |
 | PRD-017 | Space Members and Space Roles | WS-SPACES | Implemented with mock data |
+| PRD-018 | Process List | WS-PROCESS-LIST | Implemented with mock data |
+| PRD-019 | Create Process Dialog | WS-PROCESS-CREATE | Implemented with mock data |
+| PRD-020 | Process Canvas | WS-PROCESS-CANVAS | Implemented with mock data |
+| PRD-021 | Actions Live Kanban | WS-ACTIONS | Implemented with mock data |
+| PRD-022 | Actions Run History | WS-ACTIONS | Implemented with mock data |
+| PRD-023 | Action Details Dialog | WS-ACTIONS | Implemented with mock data |
 | PRD-079 | Unused Backend Cleanup | Backend, Supabase, Docs | Pending |
 
 ## Current Acceptance Rules
@@ -31,12 +37,12 @@ Active PRD index through the current implementation point.
 
 ## Next PRD Boundary
 
-Do not proceed beyond WS-SPACES unless explicitly requested.
+Do not proceed beyond WS-ACTIONS unless explicitly requested.
 
 Next likely PRD:
 
 ```txt
-WS-PROCESS-LIST
+WS-NODE-CREATE, WS-ACTIONS-REALTIME, or AGENTS-MODELS
 ```
 
 ## Cleanup PRD Note

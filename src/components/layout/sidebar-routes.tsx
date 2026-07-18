@@ -6,6 +6,7 @@ import {
   BrainCircuitIcon,
   ChartNoAxesCombinedIcon,
   CpuIcon,
+  DatabaseIcon,
   FolderKanbanIcon,
   Layers3Icon,
   LifeBuoyIcon,
@@ -55,6 +56,15 @@ export function getSidebarRoutes(organizationSlug: string): SidebarRoute[] {
         { title: "Models", href: `${base}/agents/models`, visible: true },
         { title: "Engine", href: `${base}/agents/engine`, visible: true },
         { title: "Analytics", href: `${base}/agents/analytics`, visible: true },
+      ],
+    },
+    {
+      title: "RedScale",
+      href: `${base}/redscale`,
+      icon: <BotIcon />,
+      visible: true,
+      items: [
+        { title: "Context Memory", href: `${base}/context`, visible: true },
       ],
     },
     {
@@ -109,6 +119,7 @@ export const routeLabels: Record<string, { label: string; icon?: ReactNode }> = 
   workstation: { label: "Workstation", icon: <WorkflowIcon /> },
   spaces: { label: "Spaces", icon: <Layers3Icon /> },
   process: { label: "Process", icon: <PuzzleIcon /> },
+  canvas: { label: "Canvas" },
   actions: { label: "Actions", icon: <ZapIcon /> },
   agents: { label: "Agents", icon: <BotIcon /> },
   models: { label: "Models", icon: <BrainCircuitIcon /> },
@@ -128,4 +139,6 @@ export const routeLabels: Record<string, { label: string; icon?: ReactNode }> = 
   "design-engineer": { label: "Design Engineer" },
   support: { label: "Support", icon: <LifeBuoyIcon /> },
   feedbacks: { label: "Feedbacks", icon: <MessageSquareTextIcon /> },
+  redscale: { label: "RedScale", icon: <BotIcon /> },
+  context: { label: "Context Memory", icon: <DatabaseIcon /> },
 }

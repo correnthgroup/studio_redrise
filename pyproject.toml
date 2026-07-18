@@ -3,5 +3,5 @@ name = "redrise"
 version = "0.1.0"
 requires-python = ">=3.12,<3.13"
 dependencies = [
-    "graphifyy[gemini]>=0.8.49",
+    "graphifyy[openai]>=0.8.49",
 ]

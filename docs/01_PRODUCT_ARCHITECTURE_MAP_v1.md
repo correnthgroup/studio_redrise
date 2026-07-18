@@ -2,7 +2,7 @@
 
 ## Status
 
-Active architecture baseline through Workstation Root and Spaces.
+Active architecture baseline through Workstation Root, Spaces, Process, and Actions.
 
 ## Product Vision
 
@@ -57,8 +57,12 @@ App Shell / :organizationSlug
 | APP-SHELL | Implemented | `/:organizationSlug/*` |
 | WS-ROOT | Implemented with typed mock data | `/:organizationSlug/workstation` |
 | WS-SPACES | Implemented with typed mock data | `/:organizationSlug/workstation/spaces` |
+| WS-PROCESS-LIST | Implemented with typed mock data | `/:organizationSlug/workstation/process` |
+| WS-PROCESS-CREATE | Implemented with typed mock data | `/:organizationSlug/workstation/process` |
+| WS-PROCESS-CANVAS | Implemented with typed mock data | `/:organizationSlug/workstation/process/:processId/canvas` |
+| WS-ACTIONS | Implemented with typed mock data | `/:organizationSlug/workstation/actions` |
 
-Skeleton route coverage exists for Agents, Documentation, Settings, Projects, Support, Feedbacks, Process, and Actions.
+Skeleton route coverage exists for Agents, Documentation, Settings, Projects, Support, and Feedbacks.
 
 ## Auth Domain
 
@@ -94,10 +98,7 @@ Implemented sections:
 
 Out of scope for current state:
 
-- Process List implementation.
-- Process Canvas.
-- Actions Kanban.
-- Realtime execution.
+- Realtime execution persistence.
 
 ## Spaces
 
@@ -126,6 +127,56 @@ Rules implemented in UI foundation:
 - Actions use Dialogs/Modals, not side panels.
 - Relevant actions trigger Sonner feedback.
 
+## Process
+
+Routes:
+
+```txt
+/:organizationSlug/workstation/process
+/:organizationSlug/workstation/process/:processId/canvas
+```
+
+Implemented sections:
+
+- Process List table based on `table-02` behavior and shadcn/TanStack Data Table guidance.
+- Row actions, pagination, sorting, filtering, column visibility, and row selection.
+- Create Process Dialog using the `dialog-11` layout direction.
+- ReactFlow Process Canvas with typed mock nodes and node connections.
+- Internal collapsible canvas menu with Node actions: New, Delete, Edit, Select.
+- Node card shows title, type, status, prompt preview, handles, and action menu.
+- Node configuration Dialog separates Identity, Instruction, Input, Tool/Execution, Output, Error Handling, and Review.
+
+Process data model decisions:
+
+- Nodes are modeled separately from connections and runs.
+- Node connections support `success`, `failure`, and `default` paths.
+- Node runs and plan/prepare/execute/result logs are represented as mock status only in this PRD.
+- Token cost and Agents Analytics are outside the Process Canvas MVP.
+- Versioning is outside the MVP.
+
+## Actions
+
+Route: `/:organizationSlug/workstation/actions`.
+
+Implemented sections:
+
+- Observability-only Actions screen; no creation CTA.
+- Header with manual Refresh and last-updated timestamp.
+- Filters for Space, Process, Status, Date Range, and Search.
+- Live Kanban-style board with Plan, Prepare, Execute, and Result columns.
+- Kanban cards represent node runs and move by runtime status mapping.
+- Manual drag/status changes are not implemented; runtime owns movement.
+- Run History table with row actions, pagination, sorting, filtering, visibility, and row selection.
+- Action Details Dialog using the `dialog-11` split layout direction.
+- Details sections include Overview, Steps, Result, and Metadata.
+- Failed actions show error message and suggested next action.
+
+Actions data model decisions:
+
+- `WS-ACTIONS` reads mocked `process_runs` and `node_runs` joined with Process and Space metadata.
+- Sonner is used only for user-triggered actions such as refresh, copy result, and copy Run ID.
+- Retry, manual status transition, edit node, edit model, edit integration, and configure trigger are outside this MVP.
+
 ## Current Code Organization
 
 ```txt
@@ -140,15 +191,18 @@ src/
 └── domains/
     ├── auth/
     └── workstation/
+        ├── actions/
+        ├── process/
+        └── spaces/
 ```
 
 ## Backend Status
 
 - Supabase Auth is active for auth foundation.
-- Business persistence for Spaces and Workstation is not implemented yet.
+- Business persistence for Spaces, Process, Actions, and Workstation is not implemented yet.
 - Legacy migrations/functions/libs remain preserved but are not active product truth unless explicitly reused.
 - A later cleanup PRD must remove unused backend artifacts.
 
 ## Next Scope Boundary
 
-Next implementation starts after WS-SPACES and should not assume Process or Actions logic exists.
+Next implementation starts after WS-ACTIONS and should not assume realtime persistence, retries, manual runtime transitions, token cost analytics, or RBAC is wired.

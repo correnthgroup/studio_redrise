@@ -2,7 +2,7 @@
 
 ## Status
 
-Active roadmap through WS-SPACES.
+Active roadmap through WS-ACTIONS.
 
 ## Completed
 
@@ -22,6 +22,16 @@ Active roadmap through WS-SPACES.
 - PRD-016 Create Space Wizard.
 - PRD-017 Space Members and Space Roles.
 
+### Block 3 - Workstation Process
+
+- WS-PROCESS-LIST.
+- WS-PROCESS-CREATE.
+- WS-PROCESS-CANVAS.
+
+### Block 4 - Workstation Actions
+
+- WS-ACTIONS.
+
 ## Current Validation Baseline
 
 - `npm run typecheck` must pass.
@@ -30,17 +40,16 @@ Active roadmap through WS-SPACES.
 
 ## Next Allowed Scope
 
-Next block should start after WS-SPACES and may cover Process List only if explicitly requested.
+Next block should start after WS-ACTIONS and may cover Node configuration depth, realtime runtime, or Agents only if explicitly requested.
 
 ## Not Implemented Yet
 
-- WS-PROCESS-LIST.
-- WS-PROCESS-CREATE.
-- WS-PROCESS-CANVAS.
 - WS-NODE-CREATE.
 - WS-NODE-CONFIG.
 - WS-TRIGGER-CONFIG.
-- WS-ACTIONS.
+- WS-NODE-RUNS.
+- WS-ACTIONS-REALTIME.
+- WS-ACTIONS-RETRY.
 - AGENTS-MODELS.
 - AGENTS-ENGINE.
 - AGENTS-ANALYTICS.
