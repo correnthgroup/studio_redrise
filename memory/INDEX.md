@@ -38,4 +38,4 @@ Context router for RedRise.
 Context engineering lives in `AGENTS.md` under "Memory Economics". Use
 `graphify query`/`path`/`explain` for cross-file questions; reach for
 `Read`/`Grep` only for local single-file questions. Semantic layer lives in
-`docs/graphify-out/`.
+`docs/graphify-out/` (the single canonical RedRise Graphify output).

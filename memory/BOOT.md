@@ -4,10 +4,10 @@ Read this first for RedRise tasks.
 
 ## Active Sources Of Truth
 
-- Product architecture: `docs/01_PRODUCT_ARCHITECTURE_MAP_v1.md`.
-- UI references: `docs/02_UI_BLOCKS_REFERENCE_MAP_v1.md`.
-- Roadmap: `docs/03_ROADMAP_v1.md`.
-- PRD index: `docs/04_PRD_INDEX_v1.md`.
+- Product architecture: `docs/product/01_PRODUCT_ARCHITECTURE_MAP_v1.md`.
+- UI references: `docs/product/02_UI_BLOCKS_REFERENCE_MAP_v1.md`.
+- Roadmap: `docs/product/03_ROADMAP_v1.md`.
+- PRD index: `docs/product/04_PRD_INDEX_v1.md`.
 - Router: `AGENTS.md` and `memory/INDEX.md`.
 
 These files win over older code, graph output, migrations, or memory.
@@ -69,8 +69,8 @@ python -m graphify update . --force              # AST-only, zero token cost
 
 ## Known Blockers
 
-- Semantic layer uses OpenRouter (qwen-2.5-72b, ~$0.0005 per full pass). OPENROUTER_API_KEY in .env.local.
-- `cluster-only` does not respect `GRAPHIFY_OUT` env var — use `--graph docs/graphify-out/graph.json` flag instead.
+- Semantic extraction uses the central wrapper and `CORRENTH_GRAPHIFY_OPENROUTER_API_KEY` from the user environment. No Graphify credential belongs in `.env.local`.
+- RedRise Graphify output is canonical at `docs/graphify-out/`; use that path for cluster/query operations.
 - Durable Supabase/PostgreSQL and worker adapters are pending; the UI contract is complete against memory.
-- CML is external and global-only; package publication must complete before adding the thin server adapter.
+- CML is external and global-only; the thin server adapter is present and becomes live when the official SDK package and server-side `CML_API_BASE_URL`/`CML_CONSUMER_ACCESS_TOKEN` are provisioned.
 - Legacy backend artifacts remain preserved until cleanup PRD.

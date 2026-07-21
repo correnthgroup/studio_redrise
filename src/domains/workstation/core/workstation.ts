@@ -18,7 +18,14 @@ export type WorkstationCapability =
   | "run.read"
   | "run.retry"
 
-export type DomainErrorCode = "not_found" | "permission_denied" | "invalid_transition" | "invalid_input"
+export type DomainErrorCode =
+  | "not_found"
+  | "permission_denied"
+  | "invalid_transition"
+  | "invalid_input"
+  | "revision_conflict"
+  | "idempotency_conflict"
+  | "unavailable"
 
 export class WorkstationDomainError extends Error {
   constructor(readonly code: DomainErrorCode, message: string) {

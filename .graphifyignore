@@ -1,0 +1,2 @@
+# Graphify emits a self-loop file node for this test fixture; the source remains indexed by Git and test tooling.
+tests/workspaces.spec.ts

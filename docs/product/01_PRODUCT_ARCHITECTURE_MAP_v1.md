@@ -6,7 +6,6 @@ Active architecture baseline through the functional in-memory Workstation refere
 
 ## Platform boundary
 
-- RedScale does not exist in RedRise.
 - CML is an external shared Correnth platform and never a RedRise administration domain.
 - RedRise may access global context only through the official server-side SDK with product identity and context.read.
 - Graphify owns repository-specific code/document relationships and short-lived product context.

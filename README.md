@@ -62,10 +62,10 @@ src/
 
 ## Source Of Truth
 
-- `docs/01_PRODUCT_ARCHITECTURE_MAP_v1.md`
-- `docs/02_UI_BLOCKS_REFERENCE_MAP_v1.md`
-- `docs/03_ROADMAP_v1.md`
-- `docs/04_PRD_INDEX_v1.md`
+- `docs/product/01_PRODUCT_ARCHITECTURE_MAP_v1.md`
+- `docs/product/02_UI_BLOCKS_REFERENCE_MAP_v1.md`
+- `docs/product/03_ROADMAP_v1.md`
+- `docs/product/04_PRD_INDEX_v1.md`
 - `AGENTS.md`
 - `memory/BOOT.md`
 - `memory/INDEX.md`
@@ -92,7 +92,8 @@ python -m graphify update . --force
 NEXT_PUBLIC_SUPABASE_URL=
 NEXT_PUBLIC_SUPABASE_ANON_KEY=
 SUPABASE_SERVICE_ROLE_KEY=
-OPENROUTER_API_KEY=
+CML_API_BASE_URL=
+CML_CONSUMER_ACCESS_TOKEN=
 STRIPE_SECRET_KEY=
 STRIPE_WEBHOOK_SECRET=
 APP_BASE_URL=

@@ -36,10 +36,19 @@
 - Node Run: queued -> planning -> preparing -> executing -> completed | failed | skipped | cancelled.
 - Retry creates a new Node Run with incremented attempt and retriedFromNodeRunId.
 
-## Next milestone
+## Durable milestone (PRD-024) progress
 
-- Organization-scoped Supabase/PostgreSQL repository.
-- Equivalent RLS capability matrix.
-- Durable runtime/outbox worker and Realtime Actions.
-- Idempotency, cancellation, recovery, and audit.
-- UI and domain contracts must remain unchanged.
+- Phase 0 ADRs in `docs/adr/`. Phase 1 schema/RLS live (050/051, pgTAP 29/29).
+- Phase 2 code complete: `SupabaseWorkstationAdapter` + server actions + RPCs (`052`/`053`). Provider `mode: memory|durable`; durable hydrates from `loadWorkstationSnapshot` when `WORKSTATION_DURABLE=true`.
+- Default remains memory. Durable path needs org/membership seed + `WORKSTATION_DURABLE=true` (052/053 already on remote).
+- Start/retry enqueue outbox and leave runs `queued` until Phase 4 worker.
+- Remaining: apply 052/053, canary seed/smoke; Phase 3 redaction hardening; Phase 4 worker; Phase 5 Realtime; 6–7 hardening/rollout.
+
+## Durable files
+
+| Concern | Path |
+|---|---|
+| Durable adapter | `src/domains/workstation/core/supabase-workstation-adapter.ts` |
+| Server commands | `src/domains/workstation/server/commands.ts` |
+| Snapshot load/project | `src/domains/workstation/server/load-snapshot.ts`, `project-snapshot.ts` |
+| Command RPCs | `supabase/migrations/052_*.sql`, `053_*.sql` |

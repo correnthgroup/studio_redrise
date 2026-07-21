@@ -23,10 +23,10 @@
 
 ## Active Sources Of Truth
 
-- Product architecture: `docs/01_PRODUCT_ARCHITECTURE_MAP_v1.md`.
-- UI references: `docs/02_UI_BLOCKS_REFERENCE_MAP_v1.md`.
-- Roadmap: `docs/03_ROADMAP_v1.md`.
-- PRD index: `docs/04_PRD_INDEX_v1.md`.
+- Product architecture: `docs/product/01_PRODUCT_ARCHITECTURE_MAP_v1.md`.
+- UI references: `docs/product/02_UI_BLOCKS_REFERENCE_MAP_v1.md`.
+- Roadmap: `docs/product/03_ROADMAP_v1.md`.
+- PRD index: `docs/product/04_PRD_INDEX_v1.md`.
 - Memory startup: `memory/BOOT.md`.
 - Memory router: `memory/INDEX.md`.
 
@@ -43,7 +43,7 @@ npm run lint
 npm run typecheck
 npm run test:e2e
 python -m graphify update . --force              # AST-only, zero token cost
-python -m graphify extract ./docs --backend openai  # optional semantic pass
+powershell -ExecutionPolicy Bypass -File D:\Invoke-CorrenthGraphify.ps1 -Path . -Mode semantic
 ```
 
 ## Current Entry Points
@@ -111,7 +111,7 @@ python -m graphify extract ./docs --backend openai  # optional semantic pass
 
 - Use graphify for cross-file relationship questions and after structural changes when feasible.
 - Structural graph update command: `python -m graphify update . --force`.
-- Semantic layer lives in `docs/graphify-out/` (AST + LLM extraction via Ollama local).
+- Semantic layer lives in `docs/graphify-out/` (the single canonical RedRise Graphify output).
 
 ## Memory Economics
 
@@ -161,17 +161,15 @@ team use.
   consumes no LLM tokens.
 - For the optional semantic pass on docs, use Ollama local (qwen2.5:3b):
   ```bash
-  python -m graphify extract . --backend ollama --token-budget 4000
+  powershell -ExecutionPolicy Bypass -File D:\Invoke-CorrenthGraphify.ps1 -Path . -Mode semantic
   ```
   Zero token cost. Runs on your GPU/CPU. Env vars: `OLLAMA_BASE_URL`,
   `OLLAMA_MODEL`. See `.env.example` for the full list.
 - For the optional semantic pass on docs, use OpenRouter through the
   OpenAI-compatible backend as a cloud fallback:
   ```bash
-  OPENAI_BASE_URL=https://openrouter.ai/api/v1 \
-  OPENAI_API_KEY=$OPENROUTER_API_KEY \
-  OPENAI_MODEL=openai/gpt-4.1-mini \
-  python -m graphify extract ./docs --backend openai
+  # The central wrapper injects the user-scoped credential temporarily.
+  powershell -ExecutionPolicy Bypass -File D:\Invoke-CorrenthGraphify.ps1 -Path . -Mode semantic
   ```
   Env vars are documented in `.env.example`. Do not default to the
   Gemini backend; OpenRouter is the configured path for this project.
@@ -190,7 +188,7 @@ relationships (INFERRED edges) on top of the AST-only code graph.
 ```powershell
 .\scripts\graphify-semantic.ps1 -Force
 ```
-This runs `graphify extract . --backend ollama --token-budget 4000` on the
+This runs the central Graphify wrapper on the
 whole project, merges results into `docs/graphify-out/`, cleans up stray
 sub-graphs, and re-clusters.
 

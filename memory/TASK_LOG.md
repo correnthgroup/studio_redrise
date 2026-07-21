@@ -1,5 +1,42 @@
 # TASK_LOG
 
+## 2026-07-21 - PRD-024 Phase 2 durable repository + command RPCs
+
+- Migrations 052 (workstation.* command RPCs: CRUD + start/cancel/retry with idempotency, revision, audit, outbox enqueue) and 053 (public.ws_* PostgREST wrappers).
+- Server path: loadWorkstationSnapshot, projectWorkstationSnapshot, commands.ts server actions, rpc-errors mapping.
+- Client: SupabaseWorkstationAdapter implements WorkstationRepository + ExecutionRuntime; WorkstationProvider mode memory|durable; layout hydrates durable snapshot when WORKSTATION_DURABLE is on.
+- Runtime without worker: start/retry leave runs queued + outbox pending (honest delayed execution); cancel is durable and idempotent.
+- UI contracts unchanged; default remains in-memory adapter.
+
+### Validation
+
+- typecheck, lint 0 errors, 13/13 unit tests, production build passed.
+- 052/053 applied to linked remote; schema_migrations 050–053 recorded; 15 public `ws_*` RPCs present. pg-exec strips BOM and forces ssl rejectUnauthorized=false for pooler.
+
+### Next
+
+- Seed canary organization + membership for a real auth user; set WORKSTATION_DURABLE=true (optionally WORKSTATION_DURABLE_ORGS=<slug>) and smoke CRUD in UI.
+- Phase 3/4: harden audit payload redaction helper, worker for outbox.
+
+## 2026-07-21 - PRD-024 Phases 0-1 applied and isolation validated
+
+- Wrote Phase 0 ADRs (ADR-001..005) in docs/adr/.
+- Migrations renumbered to 050_workstation_durable_base.sql and 051_workstation_durable_rls.sql (remote already had 048_project_plan_limits, absent from local tree — document drift).
+- Applied 050/051 to linked project (Postgres 17.6). Schema + workstation.* helpers + SELECT RLS live. schema_migrations records 050/051.
+- pgTAP suite 29/29 passed against remote (begin/rollback; no residual test data): anon denial, org-wide admin, space-scoped Staff/User/Viewer, cross-org invisibility, direct-write denial, composite FK rejection, idempotency uniqueness, node-delete history preservation.
+- Runner: scripts/db/pg-exec.mjs (reads SUPABASE_DB_URL from env only; never files). Credential used only in-process and cleared from user env after run.
+- Phase 1 gate "isolamento validado" closed for remote. ADRs still await formal security sign-off (P0 product gate).
+
+### Validation
+
+- Typecheck, lint (0 errors), 10/10 unit, production build, remote pgTAP 29/29.
+
+### Next
+
+- Phase 2: command RPCs + SupabaseWorkstationRepository behind WORKSTATION_DURABLE.
+- Pull or recreate missing local 048_project_plan_limits to end remote/local migration drift.
+- Rotate DB password that appeared in chat history (cannot delete chat transcripts).
+
 ## 2026-07-18 - Turbopack Client Manifest recovery
 
 - Confirmed Next/React dependencies and the built-in global-error module were present and consistent.

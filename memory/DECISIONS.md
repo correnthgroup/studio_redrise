@@ -2,10 +2,10 @@
 
 ## Active Decisions
 
-- The active product source is `docs/01_PRODUCT_ARCHITECTURE_MAP_v1.md`.
-- The active UI source is `docs/02_UI_BLOCKS_REFERENCE_MAP_v1.md`.
-- The active roadmap source is `docs/03_ROADMAP_v1.md`.
-- The active PRD source is `docs/04_PRD_INDEX_v1.md`.
+- The active product source is `docs/product/01_PRODUCT_ARCHITECTURE_MAP_v1.md`.
+- The active UI source is `docs/product/02_UI_BLOCKS_REFERENCE_MAP_v1.md`.
+- The active roadmap source is `docs/product/03_ROADMAP_v1.md`.
+- The active PRD source is `docs/product/04_PRD_INDEX_v1.md`.
 - Authenticated routing uses `src/app/(app)/[organizationSlug]/`.
 - Auth routes are `/sign-in`, `/sign-up`, `/forgot-password`, and `/reset-password`.
 - Legacy `/login` and `/signup` redirect to the new auth routes.

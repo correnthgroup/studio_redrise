@@ -15,6 +15,7 @@
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "test:unit": "vitest run",
+    "test:db": "npx supabase test db",
     "mcp:redrise-ops": "node scripts/mcp/redrise-ops.mjs",
     "mcp:redrise-ops:self-test": "node scripts/mcp/redrise-ops.mjs --self-test"
   },
