@@ -55,7 +55,7 @@ SQL remoto (sem Docker): `scripts/db/pg-exec.mjs` + `SUPABASE_DB_URL` montada em
 
 ## Definition of Done (todo PR)
 
-- [ ] Escopo do arquivo `docs/handoff/PR-*.md` correspondente
+- [ ] Escopo do arquivo `docs/handoff/workstation-production-viability/PR-*.md` correspondente
 - [ ] `npm run lint` (0 errors) + `npm run typecheck` + testes relevantes
 - [ ] `npm run build`
 - [ ] Migration aditiva se schema mudar; RLS revisado

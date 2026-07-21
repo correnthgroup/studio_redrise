@@ -2,10 +2,11 @@
 
 ## 2026-07-21 - Vendor handoff PR series
 
-- Added `docs/handoff/` with vendor engagement rules and PR-ready backlog for finishing RedRise after PRD-024 Phases 0-2.
+- Added `docs/handoff/` with vendor engagement rules and PR-ready backlog for finishing RedRise after PRD-024 Phases 0-2. PR files live under `docs/handoff/workstation-production-viability/`; `README.md` and `VENDOR_ENGAGEMENT.md` remain at the handoff root.
 - Trilha A (A1-A6) focuses strictly on making the Workstation production-viable: bootstrap org/middleware, redaction/audit hardening, durable worker, Realtime Actions, operational hardening, and canary rollout.
 - Trilha B/C covers follow-ups after Workstation viability: real org switcher, durable E2E, generated DB types, legacy backend cleanup, CML SDK live, Settings/Team/Billing v1, and CI/DoD.
 - `.ghauss/` remains untracked and out of RedRise scope.
+- Graph status: semantic Graphify refresh attempted after handoff doc changes; OpenRouter returned insufficient credits (402), partial output was quarantined and then removed. Root `graphify-out/` created by fallback command was removed because canonical RedRise output is `docs/graphify-out/`.
 
 ## 2026-07-21 - PRD-024 Phase 2 durable repository + command RPCs
 
