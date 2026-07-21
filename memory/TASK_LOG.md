@@ -1,5 +1,12 @@
 # TASK_LOG
 
+## 2026-07-21 - Vendor handoff PR series
+
+- Added `docs/handoff/` with vendor engagement rules and PR-ready backlog for finishing RedRise after PRD-024 Phases 0-2.
+- Trilha A (A1-A6) focuses strictly on making the Workstation production-viable: bootstrap org/middleware, redaction/audit hardening, durable worker, Realtime Actions, operational hardening, and canary rollout.
+- Trilha B/C covers follow-ups after Workstation viability: real org switcher, durable E2E, generated DB types, legacy backend cleanup, CML SDK live, Settings/Team/Billing v1, and CI/DoD.
+- `.ghauss/` remains untracked and out of RedRise scope.
+
 ## 2026-07-21 - PRD-024 Phase 2 durable repository + command RPCs
 
 - Migrations 052 (workstation.* command RPCs: CRUD + start/cancel/retry with idempotency, revision, audit, outbox enqueue) and 053 (public.ws_* PostgREST wrappers).
