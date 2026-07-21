@@ -1,2 +1,8 @@
 # Graphify emits a self-loop file node for this test fixture; the source remains indexed by Git and test tooling.
 tests/workspaces.spec.ts
+
+# Graphify outputs/quarantine must never become source corpus during rebuilds.
+graphify-out/
+docs/graphify-out/
+docs/docs/graphify-out/
+.graphify-quarantine/

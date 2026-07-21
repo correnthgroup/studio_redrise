@@ -6,7 +6,7 @@
 - Trilha A (A1-A6) focuses strictly on making the Workstation production-viable: bootstrap org/middleware, redaction/audit hardening, durable worker, Realtime Actions, operational hardening, and canary rollout.
 - Trilha B/C covers follow-ups after Workstation viability: real org switcher, durable E2E, generated DB types, legacy backend cleanup, CML SDK live, Settings/Team/Billing v1, and CI/DoD.
 - `.ghauss/` remains untracked and out of RedRise scope.
-- Graph status: semantic Graphify refresh attempted after handoff doc changes; OpenRouter returned insufficient credits (402), partial output was quarantined and then removed. Root `graphify-out/` created by fallback command was removed because canonical RedRise output is `docs/graphify-out/`.
+- Graph status: semantic Graphify refresh attempted after handoff doc changes; OpenRouter returned insufficient credits (402), so partial semantic output was not promoted. Rebuilt a clean AST-only graph from the RedRise root after excluding `graphify-out/`, `docs/graphify-out/`, `docs/docs/graphify-out/` and `.graphify-quarantine/` in `.graphifyignore`; moved generated `graphify-out/` into the canonical `docs/graphify-out/`.
 
 ## 2026-07-21 - PRD-024 Phase 2 durable repository + command RPCs
 
